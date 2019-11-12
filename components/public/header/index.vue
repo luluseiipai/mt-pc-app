@@ -7,7 +7,7 @@
       <user />
     </el-col>
     <el-col :span="14">
-      <div class="grid-content bg-purple" />
+      <nav-bar />
     </el-col>
   </el-row>
 </template>
@@ -15,10 +15,12 @@
 <script>
 import Geo from './geo'
 import User from './user'
+import NavBar from './nav'
 export default {
   components: {
     Geo,
-    User
+    User,
+    NavBar
   }
 }
 </script>

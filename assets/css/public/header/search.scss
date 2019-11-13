@@ -3,7 +3,8 @@
       height: 157px;
       padding: 20px 20px;
       background: #fff;
-      align-items: start;
+      display: flex;
+      align-items: flex-start;
       box-sizing: border-box;
       .left {
         width: 280px;
@@ -122,7 +123,7 @@
           li {
             font-weight: 700;
             font-size: 16px;
-            margin: 0 20px;
+            margin: 0 15px;
             cursor: pointer;
             position: relative;
 

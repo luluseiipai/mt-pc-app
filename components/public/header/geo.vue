@@ -1,16 +1,21 @@
 <template>
   <div class="m-geo">
-    <i class="el-icon-location" />北京市
+    <i class="el-icon-location" />{{ $store.state.geo.position.city }}
     <nuxt-link class="changeCity" to="/changeCity">
       切换城市
     </nuxt-link>
-    [暗示 负担 沙发]
+    {{ curPlace }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ModuleGeo'
+  name: 'ModuleGeo',
+  computed: {
+    curPlace() {
+      return `[ ${this.$store.state.geo.position.province} ${this.$store.state.geo.position.city} ]`
+    }
+  }
 }
 </script>
 

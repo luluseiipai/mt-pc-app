@@ -58,6 +58,9 @@ export default {
         } else {
           this.error = `服务器出错`
         }
+        setTimeout(() => {
+          this.error = ''
+        }, 1500)
       })
     }
   }

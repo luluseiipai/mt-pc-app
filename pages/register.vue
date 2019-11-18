@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: 'blank',
   name: 'Register',
@@ -137,8 +138,67 @@ export default {
     }
   },
   methods: {
-    sendMsg() {},
-    register() {}
+    sendMsg() {
+      let namePass, emailPass
+      if (this.timerId) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        namePass = valid
+      })
+      this.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid
+      })
+      if (!namePass && !emailPass) {
+        this.$axios.post('/users/verify', {
+          username: encodeURIComponent(this.ruleForm.name),
+          email: this.ruleForm.email
+        }).then(({ status, data }) => {
+          if (status === 200 && data && data.code === 0) {
+            let count = 60
+            this.statusMsg = `验证码已发送，剩余${count--}s`
+            this.timerId = setInterval(() => {
+              this.statusMsg = `验证码已发送，剩余${count--}s`
+              if (count === 0) {
+                clearInterval(this.timerId)
+                this.timerId = ''
+              }
+            }, 1000)
+          } else {
+            this.statusMsg = data.msg
+          }
+        })
+      }
+    },
+    register() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.$axios.post('/users/signup', {
+            username: encodeURIComponent(this.ruleForm.name),
+            password: CryptoJS.MD5(this.ruleForm.pwd).toString(),
+            email: this.ruleForm.email,
+            code: this.ruleForm.code
+          }).then(({ status, data }) => {
+            if (status === 200) {
+              if (data && data.code === 0) {
+                location.href = '/login'
+              } else {
+                this.error = data.msg
+              }
+            } else {
+              this.error = `服务器出错，错误码:${status}`
+            }
+            setTimeout(() => {
+              this.error = ''
+            }, 1500)
+          })
+        }
+      })
+    }
   }
 }
 </script>

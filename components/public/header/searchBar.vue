@@ -4,9 +4,11 @@
       <el-col
         :span="3"
         class="left">
-        <img
-          src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png"
-          alt="美团">
+        <a href="/">
+          <img
+            src="//s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png"
+            alt="美团">
+        </a>
       </el-col>
       <el-col
         :span="15"
@@ -23,16 +25,22 @@
             v-if="isHotPlace"
             class="hotPlace">
             <dt>热门搜索</dt>
-            <dd v-for="(item, index) in hotPlace" :key="index">{{ item.name }}</dd>
+            <dd v-for="(item, index) in hotPlace" :key="index">
+              <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
+            </dd>
           </dl>
           <dl
             v-if="isSearchList"
             class="searchList">
-            <dd v-for="(item, index) in searchList" :key="index">{{ item.name }}</dd>
+            <dd v-for="(item, index) in searchList" :key="index">
+              <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
+            </dd>
           </dl>
         </div>
         <p class="suggest">
-          <a v-for="(item, index) in hotPlace" :key="index" href="#">{{ item.name }}</a>
+          <a v-for="(item, index) in hotPlace" :key="index" href="#">
+            <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
+          </a>
         </p>
         <ul class="nav">
           <li>

@@ -63,7 +63,7 @@ export default {
       return this.list.filter(item => item.photos.length).length
     }
   },
-  async async(ctx) {
+  async asyncData(ctx) {
     const { keyword, type } = ctx.query
     const { status, data: { product, more: list, login } } = await ctx.$axios('/search/products', {
       params: {

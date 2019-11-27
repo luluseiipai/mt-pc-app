@@ -25,21 +25,21 @@
             v-if="isHotPlace"
             class="hotPlace">
             <dt>热门搜索</dt>
-            <dd v-for="(item, index) in hotPlace" :key="index">
+            <dd v-for="(item, index) in hotPlace" :key="index + new Date().getTime()">
               <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
             </dd>
           </dl>
           <dl
             v-if="isSearchList"
             class="searchList">
-            <dd v-for="(item, index) in searchList" :key="index">
+            <dd v-for="(item, index) in searchList" :key="index + new Date().getTime()">
               <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
             </dd>
           </dl>
         </div>
         <p class="suggest">
-          <a v-for="(item, index) in hotPlace" :key="index" href="#">
-            <a :href="'/products?keyword=' + item.name">{{ item.name }}</a>
+          <a v-for="(item, index) in hotPlace" :key="index + new Date().getTime()" :href="'/products?keyword=' + item.name">
+            {{ item.name }}
           </a>
         </p>
         <ul class="nav">

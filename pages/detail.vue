@@ -6,28 +6,88 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col>2</el-col>
+      <el-col>
+        <my-summary :meta="product" />
+      </el-col>
     </el-row>
-    <el-row>
-      <el-col>3</el-col>
+    <el-row class="m-title">
+      <el-col>
+        <h3>商家团购及优惠</h3>
+      </el-col>
     </el-row>
-    <el-row>
-      <el-col>4</el-col>
+    <el-row v-if="canOrder || !login">
+      <el-col>
+        <list
+          v-if="login"
+          :list="list" />
+        <div
+          v-else
+          class="deal-need-login">
+          <img
+            src="//p0.meituan.net/codeman/56a7d5abcb5ce3d90fc91195e5b5856911194.png"
+            alt="登录查看">
+          <span>请登录后查看详细团购优惠</span>
+          <el-button
+            type="primary"
+            round>
+            <a href="/login">立即登录</a>
+          </el-button>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import Crumbs from '@/components/detail/crumbs'
+import MySummary from '@/components/detail/summary'
+import List from '@/components/detail/list'
 export default {
   name: 'Detail',
   components: {
-    Crumbs
+    Crumbs,
+    MySummary,
+    List
   },
   data() {
     return {
       keyword: '',
-      type: ''
+      type: '',
+      product: {},
+      list: [],
+      login: false
+    }
+  },
+  computed: {
+    canOrder() {
+      return this.list.filter(item => item.photos.length).length
+    }
+  },
+  async async(ctx) {
+    const { keyword, type } = ctx.query
+    const { status, data: { product, more: list, login } } = await ctx.$axios('/search/products', {
+      params: {
+        keyword,
+        type,
+        city: ctx.store.state.geo.position.city
+      }
+    })
+    if (status === 200) {
+      return {
+        keyword,
+        product,
+        type,
+        list,
+        login
+      }
+    } else {
+      return {
+        keyword,
+        product: {},
+        type,
+        list: [],
+        login: false
+      }
     }
   }
 }

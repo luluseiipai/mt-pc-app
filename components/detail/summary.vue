@@ -14,7 +14,7 @@
       <el-carousel height="214px" indicator-position="none">
         <el-carousel-item v-for="(item,idx) in meta.photos" :key="idx">
           <h3>
-            <img :src="item.url" alt="item.title" width="100%" height="100%" />
+            <img :src="item.url" alt="item.title" width="100%" height="100%">
           </h3>
         </el-carousel-item>
       </el-carousel>
@@ -39,12 +39,12 @@ export default {
     }
   },
   computed: {
-    rate: function() {
+    rate() {
       return Number(this.meta.biz_ext.rating) || Math.floor(Math.random() * 5)
     }
   },
   methods: {
-    openMap: function(location) {}
+    openMap(location) {}
   }
 }
 </script>

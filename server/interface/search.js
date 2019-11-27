@@ -1,5 +1,4 @@
 import Router from 'koa-router'
-import Poi from '../dbs/models/poi'
 import axios from './utils/axios'
 
 const router = new Router({

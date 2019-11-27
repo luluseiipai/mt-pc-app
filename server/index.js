@@ -13,6 +13,8 @@ import users from './interface/user'
 import geo from './interface/geo'
 import search from './interface/search'
 import category from './interface/category'
+import cart from './interface/cart'
+import order from './interface/order'
 
 const app = new Koa()
 
@@ -59,6 +61,8 @@ async function start () {
   app.use(geo.routes()).use(geo.allowedMethods())
   app.use(search.routes()).use(search.allowedMethods())
   app.use(category.routes()).use(category.allowedMethods())
+  app.use(cart.routes()).use(cart.allowedMethods())
+  app.use(order.routes()).use(order.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200

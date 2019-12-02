@@ -12,7 +12,7 @@ const store = () => new Vuex.Store({
   },
   actions: {
     async nuxtServerInit({ commit }, { req, app }) {
-      const { status, data: { province, city } } = await app.$axios('/geo/getPosition')
+      const { status, data: { province, city } } = await app.$axios('geo/getPosition')
       if (status === 200) {
         commit('geo/setPosition', { city, province })
       } else {
@@ -22,7 +22,7 @@ const store = () => new Vuex.Store({
         const { status, data: { menu } } = await app.$axios.get('geo/menu')
         commit('home/setMenu', status === 200 ? menu : {})
       }
-      const { status: hotStatus, data: { result } } = await app.$axios.get('/search/hotPlace', {
+      const { status: hotStatus, data: { result } } = await app.$axios.get('search/hotPlace', {
         params: {
           city: app.store.state.geo.position.city.replace('市', '')
         }

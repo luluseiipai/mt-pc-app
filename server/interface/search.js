@@ -19,7 +19,7 @@ router.get('/top', async (ctx) => {
 
 router.get('/hotPlace', async (ctx) => {
   const city = ctx.store ? ctx.store.geo.position.city : ctx.query.city
-  const { status, data: {result} } = await axios('http://cp-tools.cn/search/hotPlace', {
+  const { status, data: { result } } = await axios('http://cp-tools.cn/search/hotPlace', {
     params: {
       city
     }
@@ -67,7 +67,7 @@ router.get('/products', async (ctx) => {
   } else {
     ctx.body = {
       product: {},
-      more: ctx.isAuthenticated() ? more: [],
+      more: ctx.isAuthenticated() ? more : [],
       login: ctx.isAuthenticated()
     }
   }

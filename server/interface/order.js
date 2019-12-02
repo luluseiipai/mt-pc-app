@@ -64,7 +64,7 @@ router.post('/getOrders', async (ctx) => {
     }
   } else {
     try {
-      const result = await Order.find()
+      const result = await Order.find({ user: ctx.session.passport.user })
       if (result) {
         ctx.body = {
           code: 0,
